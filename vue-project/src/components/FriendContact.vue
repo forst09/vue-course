@@ -1,14 +1,13 @@
 <template>
     <li>
-        <header>
-            <h1>{{ name }} {{ isFavorite ? '(Favorite)' : '' }}</h1>
-        </header>
+        <h2>{{ name }} {{ isFavorite ? '(Favorite)' : '' }}</h2>
         <button @click="toggleDetails">{{ detailsAreVisible ? 'Hide' : 'Show' }} Details</button>
         <button @click="toggleFavorite">Toggle Favorite</button>
         <ul v-if="detailsAreVisible">
             <li><strong>Phone:</strong> {{ phoneNumber }}</li>
             <li><strong>Email:</strong> {{ emailAddress }}</li>
         </ul>
+        <button @click="$emit('delete', id)">Delete</button>
     </li>
 </template>
 
@@ -46,7 +45,16 @@ export default {
                 console.warn('id is missing');
                 return false;
             }
-        }
+        },
+        'delete': function (id) {
+            if (id) {
+                return true;
+            }
+            else {
+                console.warn('id is missing');
+                return false;
+            }
+        },
     },
     data() {
         return {
@@ -59,7 +67,7 @@ export default {
         },
         toggleFavorite() {
             this.$emit('toggle-favorite', this.id);
-        }
+        },
     }
 };
 </script>
