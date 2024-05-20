@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "private": true,
   "type": "module",
+  "homepage": "https://forst09.github.io/vue-course/cmp-communication-assignment-problem/dist/",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
