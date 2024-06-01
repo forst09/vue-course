@@ -1,11 +1,10 @@
 <template>
   <ul>
-    <teams-item
-      v-for="team in teams"
+    <teams-item v-for="team in teams"
+      :id="team.id"
       :key="team.id"
       :name="team.name"
-      :member-count="team.members.length"
-    ></teams-item>
+      :member-count="team.members.length"></teams-item>
   </ul>
 </template>
 

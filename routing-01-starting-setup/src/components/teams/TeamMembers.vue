@@ -7,10 +7,12 @@
         :name="member.fullName"
         :role="member.role"></user-item>
     </ul>
+    <RouterLink to="/teams/t2">Go to team 2</RouterLink>
   </section>
 </template>
 
 <script>
+import { RouterLink } from 'vue-router';
 import UserItem from '../users/UserItem.vue';
 
 export default {
@@ -18,23 +20,33 @@ export default {
     UserItem
   },
   inject: ['users', 'teams'],
+  props: ['teamId'],
   data() {
     return {
       teamName: '',
       members: [],
     };
   },
+  methods: {
+    loadTeamMember(teamId) {
+      const selectedTeam = this.teams.find(team => team.id === teamId);
+      const members = selectedTeam.members;
+      const selectedMembers = [];
+      for (const member of members) {
+        const selectedUser = this.users.find(user => user.id === member);
+        selectedMembers.push(selectedUser);
+      };
+      this.members = selectedMembers;
+      this.teamName = selectedTeam.name;
+    }
+  },
   created() {
-    const teamId = this.$route.params.teamId;
-    const selectedTeam = this.teams.find(team => team.id === teamId);
-    const members = selectedTeam.members;
-    const selectedMembers = [];
-    for (const member of members) {
-      const selectedUser = this.users.find(user => user.id === member);
-      selectedMembers.push(selectedUser);
-    };
-    this.members = selectedMembers;
-    this.teamName = selectedTeam.name;
+    this.loadTeamMember(this.teamId);
+  },
+  watch: {
+    teamId(newId) {
+      this.loadTeamMember(newId);
+    }
   }
 };
 </script>
