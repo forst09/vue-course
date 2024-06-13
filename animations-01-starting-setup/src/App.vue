@@ -1,35 +1,59 @@
 <template>
+  <RouterView v-slot="slotProps">
+    <Transition name="route"
+      mode="out-in">
+      <component :is="slotProps.Component"></component>
+    </Transition>
+  </RouterView>
+</template>
+
+
+<!-- <div class="container">
+    <ListData></ListData>
+  </div>
   <div class="container">
     <div class="block"
       :class="{ animate: animatedBlosk }"></div>
     <button @click="animateBlock">Animate</button>
   </div>
   <div class="container">
-    <Transition>
-      <p v-if="paraIsVisible">This is only sometimes visible</p>
+    <Transition name="fade-button"
+      mode="out-in">
+      <button @click="showUsers"
+        v-if="!usersAreVisible">Show Users</button>
+      <button @click="hideUsers"
+        v-else>Hide Users</button>
     </Transition>
-    <button @click="toggleParagraph()">Toggle Paragrapg</button>
   </div>
   <base-modal @close="hideDialog"
-    v-if="dialogIsVisible">
+    :open="dialogIsVisible">
     <p>This is a test dialog!</p>
     <button @click="hideDialog">Close it!</button>
   </base-modal>
   <div class="container">
     <button @click="showDialog">Show Dialog</button>
-  </div>
-</template>
+  </div> -->
 
 <script>
 export default {
+  // components: {
+  //   ListData
+  // },
   data() {
     return {
       dialogIsVisible: false,
       animatedBlosk: false,
-      paraIsVisible: false
+      paraIsVisible: false,
+      usersAreVisible: false
     };
   },
   methods: {
+    showUsers() {
+      this.usersAreVisible = true;
+    },
+    hideUsers() {
+      this.usersAreVisible = false;
+    },
     showDialog() {
       this.dialogIsVisible = true;
     },
@@ -47,6 +71,31 @@ export default {
 </script>
 
 <style>
+@keyframes hehe {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.route-enter-active {
+  animation: hehe 1s ease;
+}
+.route-leave-active {
+  animation: hehe 1s ease reverse;
+}
+
+/* .route-enter-active,
+.route-leave-active {
+  transition: opacity 0.35s ease;
+}
+
+.route-enter-from,
+.route-leave-active {
+  opacity: 0;
+} */
 * {
   box-sizing: border-box;
 }
@@ -93,45 +142,47 @@ button:active {
   animation: slide-fade 0.3s ease-out forwards;
 }
 
-.v-enter-from {
+/* .v-enter-from {
   opacity: 0;
   transform: translateY(-30px);
+} */
+
+.para-enter-active {
+  /* transition: opacity 5s ease, transform 5s ease; */
+  animation: slide-fade 5s ease-out;
 }
 
-.v-enter-active {
-  transition: opacity 5s ease, transform 5s ease;
-}
-
-.v-enter-to {
+/* .v-enter-to {
   opacity: 1;
   transform: translateY(0);
-}
+} */
 
-.v-leave-from {
+/* .v-leave-from {
   opacity: 1;
   transform: translateY(0);
+} */
+
+.para-leave-active {
+  /* transition: opacity 5s ease, transform 5s ease; */
+  animation: slide-fade 5s ease-out;
 }
 
-.v-leave-active {
-  transition: opacity 5s ease, transform 5s ease;
-}
-
-.v-leave-to {
+/* .v-leave-to {
   opacity: 0;
   transform: translateY(30px);
+} */
+.fade-button-enter-from,
+.fade-button-leave-to {
+  opacity: 0;
 }
-
-@keyframes slide-fade {
-  0% {
-    transform: translateX(0) scale(1);
-  }
-
-  70% {
-    transform: translateX(-120px) scale(1.1);
-  }
-
-  100% {
-    transform: translateX(-150px) scale(1);
-  }
+.fade-button-enter-active {
+  transition: opacity 0.3s ease-out
+}
+.fade-button-enter-to,
+.fade-button-leave-from {
+  opacity: 1;
+}
+.fade-button-leave-active {
+  transition: opacity 0.3s ease-in
 }
 </style>
