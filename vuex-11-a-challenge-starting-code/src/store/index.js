@@ -2,10 +2,12 @@ import { createStore } from "vuex";
 import rootGetters from './getters';
 
 import cartModule from './modules/cart/index';
+import loginModule from './modules/login/index';
 
 const store = createStore({
     modules: {
         cart: cartModule,
+        login: loginModule
     },
     state() {
         return {

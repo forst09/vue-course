@@ -25,7 +25,7 @@ export default {
   computed: {
     cartTotal() {
       // return this.cart.total.toFixed(2);
-      return this.$store.getters['cart/cartTotal']
+      return this.$store.getters['cart/cartTotal'].toFixed(2)
     },
     cartItems() {
       return this.$store.getters['cart/cartItems']

@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="product__actions">
-      <button @click="addToCart({ id: this.id, image: this.image, title: this.title, price: this.price })">Add to
+      <button @click="addToCart">Add to
         Cart</button>
     </div>
   </li>
@@ -23,25 +23,18 @@
 
 <script>
 export default {
-  // inject: ['addProductToCart'],
   props: ['id', 'image', 'title', 'price', 'description'],
   methods: {
     addToCart() {
       this.$store.dispatch({
         type: 'cart/addProductToCart',
-        // itemInfo: {
-        //   id: this.id,
-        //   image: this.image,
-        //   title: this.title,
-        //   price: this.price,
-        // }
-      })
-      // this.addProductToCart({
-      //   id: this.id,
-      //   image: this.image,
-      //   title: this.title,
-      //   price: this.price,
-      // });
+        itemInfo: {
+          id: this.id,
+          image: this.image,
+          title: this.title,
+          price: this.price,
+        }
+      });
     },
   },
 };
