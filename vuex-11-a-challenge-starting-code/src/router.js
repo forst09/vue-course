@@ -7,10 +7,10 @@ import ShopAdmin from './pages/ShopAdmin.vue';
 const router = createRouter({
   history: createWebHistory(),
   routes: [
-    { path: '/vue-course/vuex-11-a-challenge-starting-code/dist/', redirect: '/products' },
-    { path: '/vue-course/vuex-11-a-challenge-starting-code/dist/products', component: ProductsList },
-    { path: '/vue-course/vuex-11-a-challenge-starting-code/dist/cart', component: UserCart },
-    { path: '/vue-course/vuex-11-a-challenge-starting-code/dist/admin', component: ShopAdmin },
+    { path: '/', redirect: '/products' },
+    { path: '/products', component: ProductsList },
+    { path: '/cart', component: UserCart },
+    { path: '/admin', component: ShopAdmin },
   ]
 });
 
