@@ -40,10 +40,11 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch('login/logout');
-      this.$router.push('/');
+      this.$router.push({ name: 'main' });
     },
     login() {
       this.$store.dispatch('login/login');
+      this.$router.push({ name: 'admin' });
     }
   }
 };
