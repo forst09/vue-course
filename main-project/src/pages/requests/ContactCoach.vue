@@ -1,5 +1,5 @@
 <template>
-    hihi
+    contact a coach
 </template>
 
 <script>

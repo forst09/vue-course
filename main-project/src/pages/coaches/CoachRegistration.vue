@@ -1,5 +1,5 @@
 <template>
-    hihi
+    register
 </template>
 
 <script>
