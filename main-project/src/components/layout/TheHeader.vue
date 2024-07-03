@@ -8,8 +8,14 @@
                 <li>
                     <RouterLink to="/coaches">all coaches</RouterLink>
                 </li>
-                <li>
+                <li v-if="isLoggedIn">
                     <RouterLink to="/requests">requests</RouterLink>
+                </li>
+                <li v-else>
+                    <RouterLink to="/auth">login</RouterLink>
+                </li>
+                <li v-if="isLoggedIn">
+                    <BaseButton @click="logout">logout</BaseButton>
                 </li>
             </ul>
         </nav>
@@ -18,7 +24,17 @@
 
 <script>
 export default {
-
+    computed: {
+        isLoggedIn() {
+            return this.$store.getters.isAuthenticated;
+        }
+    },
+    methods: {
+        logout() {
+            this.$store.dispatch('logout');
+            this.$router.replace('/coaches');
+        }
+    }
 }
 </script>
 
