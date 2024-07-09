@@ -1,50 +1,27 @@
 <template>
   <section class="container">
-    <!-- <h2>{{ userName }}</h2>
-    <h3>{{ age }}</h3> -->
     <h2>{{ user.name }}</h2>
     <h3>{{ user.age }}</h3>
-
+    <button @click="setAge">change age</button>
   </section>
 </template>
 
 <script>
 import { reactive } from 'vue';
-// import { ref } from 'vue';
 
 export default {
   setup() {
-    // const uName = ref('Daria');
-    // const uAge = ref(22);
-
     const user = reactive({
       name: 'Daria',
       age: 22
     });
 
-    // const user = ref({
-    //   name: 'Daria',
-    //   age: 22
-    // });
+    function setNewAge() {
+      user.age = 32;
+    }
 
-    setTimeout(() => {
-      // uName.value = 'hehe';
-      // uAge.value = 666;
-      // user.value.name = 'hehe';
-      // user.value.age = 666;
-      user.name = 'hehe';
-      user.age = 666;
-    }, 2000);
-
-    return { user: user };
-    // return { userName: user.value.name, age: user.value.age, user: user };
-    // return { userName: uName, age: uAge };
+    return { user: user, setAge: setNewAge };
   }
-  // data() {
-  //   return {
-  //     userName: 'Maximilian',
-  //   };
-  // },
 };
 </script>
 
