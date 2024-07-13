@@ -31,13 +31,16 @@ const props = defineProps([
   'users'
 ]);
 
+defineEmits([
+  'list-projects'
+]);
+
 let enteredSearchTerm = ref('');
 let activeSearchTerm = ref('');
-let sorting = ref();
 
 const availableUsers = computed(() => {
   let users = [];
-  if (activeSearchTerm) {
+  if (activeSearchTerm.value) {
     users = props.users.filter((usr) =>
       usr.fullName.includes(activeSearchTerm.value)
     );
@@ -47,8 +50,22 @@ const availableUsers = computed(() => {
   return users;
 });
 
+function updateSearch(val) {
+  enteredSearchTerm.value = val;
+};
+
+watch(enteredSearchTerm, (val) => {
+  setTimeout(() => {
+    if (val === enteredSearchTerm.value) {
+      activeSearchTerm.value = val;
+    }
+  }, 300);
+})
+
+let sorting = ref(null);
+
 const displayedUsers = computed(() => {
-  if (!sorting) {
+  if (!sorting.value) {
     return availableUsers.value;
   }
   return availableUsers.value.slice().sort((u1, u2) => {
@@ -62,28 +79,11 @@ const displayedUsers = computed(() => {
       return 1;
     }
   });
-})
-
-console.log(displayedUsers.value);
-displayedUsers.value.forEach(item => {
-  console.log(item.id);
-})
-
-function updateSearch(val) {
-  enteredSearchTerm.value = val;
-};
+});
 
 function sort(mode) {
   sorting.value = mode;
 };
-
-watch(enteredSearchTerm, (val) => {
-  setTimeout(() => {
-    if (val === enteredSearchTerm.value) {
-      activeSearchTerm.value = val;
-    }
-  }, 300);
-})
 
 
 // export default {

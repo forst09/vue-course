@@ -6,14 +6,10 @@
 </template>
 
 <script setup>
-
-
 const props = defineProps([
   'id',
   'userName'
 ]);
-
-console.log(props);
 
 const emit = defineEmits([
   'list-projects'

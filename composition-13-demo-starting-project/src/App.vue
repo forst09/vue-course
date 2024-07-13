@@ -23,9 +23,7 @@ let selectedUser = ref(null);
 const activeUsers = USER_DATA;
 
 function selectUser(uid) {
-  console.log(uid);
   selectedUser.value = activeUsers.find((usr) => usr.id === uid);
-  console.log(selectedUser.value);
 };
 
 // export default {

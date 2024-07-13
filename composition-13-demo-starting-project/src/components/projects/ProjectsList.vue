@@ -17,7 +17,7 @@
 </template>
 
 <script setup>
-import { computed, defineComponent, ref, watch } from 'vue';
+import { computed, defineComponent, ref, toRefs, watch } from 'vue';
 import ProjectItem from './ProjectItem.vue';
 
 defineComponent([
@@ -28,17 +28,11 @@ const props = defineProps([
   'user',
 ]);
 
-const user = props.user;
-
 let enteredSearchTerm = ref('');
 let activeSearchTerm = ref('');
 
-const hasProjects = computed(() => {
-  return props.user.projects && availableProjects.value.length > 0;
-})
-
 const availableProjects = computed(() => {
-  if (activeSearchTerm) {
+  if (activeSearchTerm.value) {
     return props.user.projects.filter((prj) =>
       prj.title.includes(activeSearchTerm.value)
     );
@@ -46,10 +40,9 @@ const availableProjects = computed(() => {
   return props.user.projects;
 });
 
-function updateSearch(val) {
-  enteredSearchTerm.value = val;
-  console.log(val);
-}
+const hasProjects = computed(() => {
+  return props.user.projects && availableProjects.value.length > 0;
+})
 
 watch(enteredSearchTerm, (val) => {
   setTimeout(() => {
@@ -59,8 +52,15 @@ watch(enteredSearchTerm, (val) => {
   }, 300);
 });
 
-watch(props, (val) => {
-  console.log('change');
+function updateSearch(val) {
+  enteredSearchTerm.value = val;
+}
+
+const propsWithRefs = toRefs(props);
+// const user = propsWithRefs.user;
+const { user } = toRefs(props);
+
+watch(user, () => {
   enteredSearchTerm.value = '';
 })
 

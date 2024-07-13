@@ -18,7 +18,6 @@ const emits = defineEmits([
 
 function search(event) {
   emits('search', event.target.value);
-  // this.$emit('search', event.target.value);
 }
 
 // export default {
